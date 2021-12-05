@@ -1,46 +1,25 @@
 package com.ensolvers.webexercise.services;
 
+import org.springframework.stereotype.Service;
+
 import com.ensolvers.webexercise.domain.Folder;
 import com.ensolvers.webexercise.domain.ToDo;
+import com.ensolvers.webexercise.domain.User;
+import com.ensolvers.webexercise.repositories.FolderRepository;
 
+@Service
 public class FolderService implements IFolderService{
 
 	@Override
-	public void postToDo(ToDo toDo) {
-		
-		// TODO Auto-generated method stub
-		
+	public void createFolder(String name, User user) {
+		Folder folder = new Folder(name, user);
+		FolderRepository.getInstancia().add(folder);
 	}
 
 	@Override
-	public void deleteToDo(ToDo toDo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void putToDo(ToDo toDo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void postFolder(Folder folder) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteFolder(Folder folder) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void putFolder(Folder folder) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void removeFolder(Folder folder, User user) {
+		FolderRepository.getInstancia().getFolderList().stream().filter(list -> list.equals(user)); // && filter.equals(id)
+		//TODO
+	}	
 	
-
 }
