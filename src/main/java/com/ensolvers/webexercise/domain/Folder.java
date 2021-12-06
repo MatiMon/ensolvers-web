@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 
 import com.ensolvers.webexercise.dtos.Persistent;
 
+
 @Entity(name = "Folders")
 public class Folder extends Persistent{
 	
