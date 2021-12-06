@@ -3,6 +3,7 @@ package com.ensolvers.webexercise.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,7 +15,7 @@ public class Folder extends Persistent {
 
 	private String name;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ToDo> toDoList;
 
 	@ManyToOne
@@ -47,9 +48,11 @@ public class Folder extends Persistent {
 		this.toDoList.add(toDo);
 	}
 
-	public void remove(ToDo toDo) {
-		if (!this.toDoList.remove(toDo)) {
+	public void removeById(Long toDoId) {
+		ToDo toDo = this.toDoList.stream().filter(list -> list.getId().equals(toDoId)).findAny().orElse(null);
+		if (toDo == null) {
 			throw new RuntimeException("el To Do no pertenecía a esta carpeta.");
 		}
+		this.toDoList.remove(toDo);
 	}
 }

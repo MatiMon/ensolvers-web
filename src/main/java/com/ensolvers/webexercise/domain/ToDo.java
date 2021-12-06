@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 
 import com.ensolvers.webexercise.dtos.Persistent;
 
-@Entity(name = "ToDoNotes")
+@Entity(name = "ToDo")
 public class ToDo extends Persistent {
 	private String text;
 	private Boolean status = false;
