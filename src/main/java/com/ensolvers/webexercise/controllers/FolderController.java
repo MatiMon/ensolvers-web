@@ -9,35 +9,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ensolvers.webexercise.domain.Folder;
 import com.ensolvers.webexercise.domain.User;
 import com.ensolvers.webexercise.services.FolderService;
 
-@RequestMapping("/folder")
+@RestController
+@RequestMapping("/user/{userId}/folder")
 public class FolderController {
 	private final FolderService folderService;
-	
+
 	@Autowired
 	public FolderController(FolderService folderService) {
 		this.folderService = folderService;
 	}
-	
+
 	@GetMapping
-	public List<Folder> getFolders(){
-		return this.folderService.getFolders();
+	public List<Folder> getFolders(@PathVariable Long userId) {
+		return this.folderService.getFolders(userId);
 	}
-	
+
 	@PostMapping
-	public void createFolder(@RequestBody User user, @RequestBody String name) {
-		this.folderService.createFolder(user, name);
+	public void createFolder(@PathVariable Long userId, @RequestParam("name") String name) {
+		this.folderService.createFolder(userId, name);
 	}
-	
+
 	@DeleteMapping(value = "/{folderId}")
 	public void deleteFolder(@PathVariable Long folderId) {
 		this.folderService.removeFolder(folderId);
 	}
-	
 
-	
 }

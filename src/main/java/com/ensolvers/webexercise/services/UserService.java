@@ -22,8 +22,8 @@ public class UserService {
 		return this.userRepository.findAll();
 	}
 	
-	public void createUser(String username, String password) {
-		this.userRepository.save(new User(username, password));
+	public void createUser(User user) {
+		this.userRepository.save(user);
 	}
 
 }

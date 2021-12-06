@@ -5,11 +5,10 @@ import javax.persistence.Entity;
 import com.ensolvers.webexercise.dtos.Persistent;
 
 @Entity(name = "ToDoNotes")
-public class ToDo extends Persistent{
+public class ToDo extends Persistent {
 	private String text;
 	private Boolean status = false;
 
-	
 	public ToDo(String text) {
 		this.text = text;
 	}
@@ -17,6 +16,9 @@ public class ToDo extends Persistent{
 	public ToDo(String text, Boolean status) {
 		this.text = text;
 		this.status = status;
+	}
+
+	public ToDo() {
 	}
 
 	public String getText() {

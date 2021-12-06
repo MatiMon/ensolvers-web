@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ensolvers.webexercise.domain.ToDo;
 import com.ensolvers.webexercise.services.ToDoService;
 
+@RestController
 @RequestMapping("/folder/{folderId}/toDo")
 public class ToDoController {
 	private final ToDoService toDoService;
@@ -43,8 +45,8 @@ public class ToDoController {
 		this.toDoService.changeStatus(folderId, toDoId);
 	}
 	
-	@PutMapping(value = "/{toDoId}")
+	/*@PutMapping(value = "/{toDoId}")
 	public void changeText(@PathVariable Long folderId, @PathVariable Long toDoId, @RequestBody String text) {
 		this.toDoService.changeText(folderId, toDoId, text);
-	}
+	}*/
 }
