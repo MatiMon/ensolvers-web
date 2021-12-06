@@ -1,45 +1,57 @@
 package com.ensolvers.webexercise.services;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import com.ensolvers.webexercise.domain.Folder;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.ensolvers.webexercise.domain.ToDo;
+import com.ensolvers.webexercise.repositories.FolderRepository;
 
 @Service
-public class ToDoService implements IToDoService {
+public class ToDoService {
 
-	@Override
-	public void createToDo(String text, Folder folder) {
-		ToDo todo = new ToDo(text);
-		folder.add(todo);	
+	private final FolderRepository folderRepository;
+
+	@Autowired
+	public ToDoService(FolderRepository folderRepository) {
+		this.folderRepository = folderRepository;
 	}
 
-	@Override
-	public void removeToDo(ToDo toDo, Folder folder) {
-		if(!folder.getToDoList().remove(toDo)) {
-			throw new RuntimeException("el To Do no pertenecia a la carpeta.");
+	public List<ToDo> getToDoS(Long folderId) {
+		if (!this.folderRepository.existsById(folderId)) {
+			throw new RuntimeException("no existe la carpeta.");
+		}
+		return folderRepository.getById(folderId).getToDoList();
+	}
+
+	public void createToDo(Long folderId, String text) {
+		folderRepository.getById(folderId).add(new ToDo(text));
+	}
+
+	public void removeToDo(Long folderId, Long toDoId) {
+		ToDo toDo = obtainToDo(folderId, toDoId);
+		if (toDo != null) {
+			folderRepository.getById(folderId).getToDoList().remove(toDo);
 		}
 	}
-
-	@Override
-	public void editToDo(String text, ToDo toDo, Folder folder) {
-		ToDo anotherToDo = obtainToDo(toDo, folder);
-		if(anotherToDo != null) {
-			anotherToDo.setText(text);
-		}		
-	}
-
-	@Override
-	public void changeStatus(ToDo toDo, Folder folder) {
-		ToDo anotherToDo = obtainToDo(toDo, folder);
-		if(anotherToDo != null) {
-			anotherToDo.setStatus(!anotherToDo.getStatus());
-		}	
-		
-	}
 	
-	private ToDo obtainToDo(ToDo toDo, Folder folder) {
-		return folder.getToDoList().stream().filter(list -> list.equals(toDo)).findAny().orElse(null);
+	@Transactional
+	public void changeText(Long folderId, Long toDoId, String text) {
+		ToDo toDo = obtainToDo(folderId, toDoId);
+		toDo.setText(text);
+	}
+
+	@Transactional
+	public void changeStatus(Long folderId, Long toDoId) {
+		ToDo toDo = obtainToDo(folderId, toDoId);
+		toDo.setStatus(!toDo.getStatus());
+	}
+
+	private ToDo obtainToDo(Long folderId, Long toDoId) {
+		return folderRepository.getById(folderId).getToDoList().stream()
+				.filter(list -> list.getId().equals(toDoId)).findAny().orElse(null);
 	}
 
 }

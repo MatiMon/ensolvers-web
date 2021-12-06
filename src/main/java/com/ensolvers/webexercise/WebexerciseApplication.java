@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.ensolvers.webexercise.domain.User;
-import com.ensolvers.webexercise.repositories.IFolderRepository;
-import com.ensolvers.webexercise.repositories.IUserRepository;
+import com.ensolvers.webexercise.repositories.FolderRepository;
+import com.ensolvers.webexercise.repositories.UserRepository;
 
 @SpringBootApplication
 public class WebexerciseApplication {

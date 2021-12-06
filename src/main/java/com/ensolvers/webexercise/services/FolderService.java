@@ -1,25 +1,39 @@
 package com.ensolvers.webexercise.services;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ensolvers.webexercise.domain.Folder;
-import com.ensolvers.webexercise.domain.ToDo;
 import com.ensolvers.webexercise.domain.User;
 import com.ensolvers.webexercise.repositories.FolderRepository;
 
 @Service
-public class FolderService implements IFolderService{
+public class FolderService {
+	private final FolderRepository folderRepository;
 
-	@Override
-	public void createFolder(String name, User user) {
-		Folder folder = new Folder(name, user);
-		FolderRepository.getInstancia().add(folder);
+	@Autowired
+	public FolderService(FolderRepository folderRepository) {
+		this.folderRepository = folderRepository;
+	}
+	
+	public List<Folder> getFolders() {
+		return folderRepository.findAll();
 	}
 
-	@Override
-	public void removeFolder(Folder folder, User user) {
-		FolderRepository.getInstancia().getFolderList().stream().filter(list -> list.equals(user)); // && filter.equals(id)
-		//TODO
-	}	
 	
+	public void createFolder(User user, String name) {
+		Folder folder = new Folder(name, user);
+		this.folderRepository.save(folder);
+	}
+
+	
+	public void removeFolder(Long folderId) {
+		if(!this.folderRepository.existsById(folderId)) {
+			throw new RuntimeException("no existe la carpeta.");
+		} else this.folderRepository.deleteById(folderId);	
+	}
+	
+
 }
