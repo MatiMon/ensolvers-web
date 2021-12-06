@@ -41,13 +41,13 @@ public class ToDoController {
 		this.toDoService.removeToDo(folderId, toDoId);
 	}
 	
-	@PatchMapping(value = "/{toDoId}") //creo que debe ir patch
+	@PatchMapping(value = "/{toDoId}")
 	public void changeStatus(@PathVariable Long folderId, @PathVariable Long toDoId) {
 		this.toDoService.changeStatus(folderId, toDoId);
 	}
 	
-	/*@PutMapping(value = "/{toDoId}")
-	public void changeText(@PathVariable Long folderId, @PathVariable Long toDoId, @RequestBody String text) {
+	@PutMapping(value = "/{toDoId}")
+	public void changeText(@PathVariable Long folderId, @PathVariable Long toDoId, @RequestParam("text") String text) {
 		this.toDoService.changeText(folderId, toDoId, text);
-	}*/
+	}
 }
