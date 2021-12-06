@@ -1,9 +1,13 @@
 package com.ensolvers.webexercise.domain;
 
-public class User {
+import javax.persistence.Entity;
 
+import com.ensolvers.webexercise.dtos.Persistent;
+
+@Entity(name = "Users")
+public class User extends Persistent{
 	private String username;
-	private String password; // hashear
+	private String password; // guardar hasheada y aplicar OWASP
 
 	public User(String username, String password) {
 		this.username = username;

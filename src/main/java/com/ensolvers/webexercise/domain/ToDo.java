@@ -1,6 +1,11 @@
 package com.ensolvers.webexercise.domain;
 
-public class ToDo {
+import javax.persistence.Entity;
+
+import com.ensolvers.webexercise.dtos.Persistent;
+
+@Entity(name = "ToDoNotes")
+public class ToDo extends Persistent{
 	private String text;
 	private Boolean status = false;
 

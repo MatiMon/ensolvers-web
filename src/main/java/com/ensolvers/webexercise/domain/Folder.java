@@ -3,9 +3,21 @@ package com.ensolvers.webexercise.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Folder {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.ensolvers.webexercise.dtos.Persistent;
+
+@Entity(name = "Folders")
+public class Folder extends Persistent{
+	
 	private String name;
+	
+	@OneToMany
 	private List<ToDo> toDoList;
+	
+	@ManyToOne
 	private User user;
 
 	public Folder(String name, User user) {
