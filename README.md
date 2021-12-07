@@ -7,7 +7,8 @@
 
 # Comandos
 Ejecutar backend:
- NOTAS:
+<br>
+NOTAS:
 * Es necesario tener un usuario y contraseña de MySql ya que se van a pedir para crear la DB.
 * Es necesario contar con un puerto libre ya que se va a solicitar para levantar la aplicación.
 ```
