@@ -7,7 +7,7 @@
 
 # Comandos
 Ejecutar backend:
-NOTAS:
+* NOTAS:
 - Es necesario tener un usuario y contraseña de MySql ya que se van a pedir para crear la DB.
 - Es necesario contar con un puerto libre ya que se va a solicitar para levantar la aplicación.
 ```
@@ -22,7 +22,7 @@ sh initialData.sh
 
 
 Ejecutar el frontend:
-NOTA: el frontend sólo levanta en el puerto 8069.
+* NOTA: el frontend sólo levanta en el puerto 8069.
 ```
 sh startFrontendApp.sh
 ```    
