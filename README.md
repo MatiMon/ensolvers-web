@@ -23,7 +23,7 @@ sh initialData.sh
 
 
 Ejecutar el frontend:
-* NOTA: el frontend sólo levanta en el puerto 8069.
+* NOTA: el frontend sólo funciona si el backend fue levantado en el puerto 8069.
 ```
 sh startFrontendApp.sh
 ```    
